@@ -54,28 +54,35 @@ bool isEmpty(Queue<T> q) {
  */
 template <typename T>
 void enqueue(Queue<T> &q, const T &value, int priority) {
-  ElementPtr<T> newElement = new Element<T>{.data = value, .priority = priority};
-  ElementPtr<T> prev = nullptr, help = q.Head;
+  ElementPtr<T> prev, help, newElement = new Element<T>{.data = value, .priority = priority};
+  prev = help = q.Head;
+  
   if(isEmpty(q)){
+    // std::cout<<"empty";
     q.Head = q.Tail = newElement;
   } 
   else{
     while(newElement->priority <= help->priority){
+      // std::cout<<"next, ";
+      if(help->next == nullptr){ break;}
       prev = help;
       help = help->next;
-      if(help->next == nullptr) break;
+      
     }
     if(help == q.Head && newElement->priority > help->priority){
+      std::cout<<"add head";
       newElement->next = q.Head;
       q.Head = newElement;
     }
     else if(help == q.Tail && newElement->priority < help->priority){
+      std::cout<<"add tail";
       q.Tail->next = newElement;
       q.Tail = newElement;
     }
     else{
+      std::cout<<"add middle";
       prev->next = newElement;
-      newElement->next = help;
+      if(prev != help) newElement->next = help;
     }
   }
 }
@@ -88,6 +95,7 @@ void enqueue(Queue<T> &q, const T &value, int priority) {
  */
 template <typename T>
 T top(const Queue<T> &q) {
+  if(isEmpty(q)) return NULL;
   return q.Head->data;
 }
 
@@ -100,9 +108,11 @@ template <typename T>
 void dequeue(Queue<T> &q) {
   if(isEmpty(q)) return;
   if(q.Tail == q.Head){
+    std::cout<<"tail = head";
     q.Head = q.Tail = nullptr;
   }
   else{
+    std::cout<<"yeees";
     q.Head = q.Head->next;
   }
 }

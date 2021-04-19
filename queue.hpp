@@ -70,17 +70,17 @@ void enqueue(Queue<T> &q, const T &value, int priority) {
       
     }
     if(help == q.Head && newElement->priority > help->priority){
-      std::cout<<"add head";
+      // std::cout<<"add head";
       newElement->next = q.Head;
       q.Head = newElement;
     }
     else if(help == q.Tail && newElement->priority < help->priority){
-      std::cout<<"add tail";
+      // std::cout<<"add tail";
       q.Tail->next = newElement;
       q.Tail = newElement;
     }
     else{
-      std::cout<<"add middle";
+      // std::cout<<"add middle";
       prev->next = newElement;
       if(prev != help) newElement->next = help;
     }
@@ -108,11 +108,11 @@ template <typename T>
 void dequeue(Queue<T> &q) {
   if(isEmpty(q)) return;
   if(q.Tail == q.Head){
-    std::cout<<"tail = head";
+    // std::cout<<"tail = head";
     q.Head = q.Tail = nullptr;
   }
   else{
-    std::cout<<"yeees";
+    // std::cout<<"yeees";
     q.Head = q.Head->next;
   }
 }
